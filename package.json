@@ -22,7 +22,8 @@
     "db:migrate:dev:win": "node runWithProvider.js \"xcopy /E /I prisma\\DATABASE_PROVIDER-migrations prisma\\migrations && npx prisma migrate dev --schema prisma\\DATABASE_PROVIDER-schema.prisma\"",
     "prepare": "husky || true",
     "postinstall": "npm run db:generate || prisma generate --schema ./prisma/postgresql-schema.prisma",
-    "heroku-prebuild": "bash scripts/heroku-prebuild.sh"
+    "heroku-prebuild": "bash scripts/heroku-prebuild.sh",
+    "heroku-release": "bash scripts/heroku-release.sh"
   },
   "repository": {
     "type": "git",
