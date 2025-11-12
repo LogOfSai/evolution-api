@@ -1,0 +1,172 @@
+{
+  "name": "Evolution API",
+  "description": "REST API for WhatsApp communication - Multi-tenant, production-ready",
+  "repository": "https://github.com/EvolutionAPI/evolution-api",
+  "logo": "https://evolution-api.com/favicon.png",
+  "keywords": [
+    "whatsapp",
+    "whatsapp-api",
+    "whatsapp-web",
+    "baileys",
+    "chatbot",
+    "automation",
+    "nodejs",
+    "typescript",
+    "api"
+  ],
+  "stack": "heroku-24",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:essential-0",
+      "as": "DATABASE"
+    },
+    {
+      "plan": "heroku-redis:mini",
+      "as": "REDIS"
+    }
+  ],
+  "env": {
+    "DATABASE_PROVIDER": {
+      "description": "Database provider to use (postgresql or mysql)",
+      "value": "postgresql",
+      "required": true
+    },
+    "AUTHENTICATION_API_KEY": {
+      "description": "API key for authentication (generate a secure random string)",
+      "generator": "secret",
+      "required": true
+    },
+    "SERVER_URL": {
+      "description": "Public URL of your application",
+      "value": "https://yourapp.herokuapp.com",
+      "required": true
+    },
+    "SERVER_PORT": {
+      "description": "Server port (Heroku manages this automatically)",
+      "value": "8080",
+      "required": false
+    },
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production",
+      "required": true
+    },
+    "CACHE_REDIS_ENABLED": {
+      "description": "Enable Redis cache",
+      "value": "true",
+      "required": false
+    },
+    "LOG_LEVEL": {
+      "description": "Logging level (ERROR, WARN, INFO, DEBUG)",
+      "value": "ERROR",
+      "required": false
+    },
+    "LOG_COLOR": {
+      "description": "Enable colored logs",
+      "value": "false",
+      "required": false
+    },
+    "WEBSOCKET_ENABLED": {
+      "description": "Enable WebSocket support",
+      "value": "false",
+      "required": false
+    },
+    "DATABASE_SAVE_DATA_INSTANCE": {
+      "description": "Save instance data to database",
+      "value": "true",
+      "required": false
+    },
+    "DATABASE_SAVE_DATA_NEW_MESSAGE": {
+      "description": "Save new messages to database",
+      "value": "true",
+      "required": false
+    },
+    "DATABASE_SAVE_MESSAGE_UPDATE": {
+      "description": "Save message updates to database",
+      "value": "true",
+      "required": false
+    },
+    "DATABASE_SAVE_DATA_CONTACTS": {
+      "description": "Save contacts to database",
+      "value": "true",
+      "required": false
+    },
+    "DATABASE_SAVE_DATA_CHATS": {
+      "description": "Save chats to database",
+      "value": "true",
+      "required": false
+    },
+    "DEL_INSTANCE": {
+      "description": "Allow instance deletion",
+      "value": "false",
+      "required": false
+    },
+    "CORS_ORIGIN": {
+      "description": "CORS allowed origins (* for all, or specific domain)",
+      "value": "*",
+      "required": false
+    },
+    "CORS_METHODS": {
+      "description": "CORS allowed methods",
+      "value": "POST,GET,PUT,DELETE",
+      "required": false
+    },
+    "CORS_CREDENTIALS": {
+      "description": "CORS allow credentials",
+      "value": "true",
+      "required": false
+    }
+  },
+  "scripts": {
+    "postdeploy": "npm run db:deploy"
+  },
+  "environments": {
+    "test": {
+      "addons": [
+        {
+          "plan": "heroku-postgresql:mini"
+        },
+        {
+          "plan": "heroku-redis:mini"
+        }
+      ]
+    },
+    "staging": {
+      "addons": [
+        {
+          "plan": "heroku-postgresql:standard-0"
+        },
+        {
+          "plan": "heroku-redis:premium-0"
+        }
+      ]
+    },
+    "production": {
+      "addons": [
+        {
+          "plan": "heroku-postgresql:standard-0"
+        },
+        {
+          "plan": "heroku-redis:premium-0"
+        }
+      ],
+      "formation": {
+        "web": {
+          "quantity": 2,
+          "size": "standard-1x"
+        }
+      }
+    }
+  }
+}

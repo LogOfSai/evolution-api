@@ -1,0 +1,48 @@
+# Heroku Slug Ignore - Arquivos excluídos do deploy
+
+# Desenvolvimento
+.vscode/
+.devcontainer/
+*.test.ts
+test/
+
+# Documentação
+*.md
+!README.md
+CLAUDE.md
+AGENTS.md
+SECURITY.md
+CHANGELOG.md
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD (não Heroku)
+.github/
+
+# Docker (não necessário no Heroku)
+docker-compose*.yaml
+Dockerfile*
+Docker/
+
+# Scripts de desenvolvimento
+local_install.sh
+manager_install.sh
+
+# Exemplos e extras
+grafana-dashboard.json.example
+prometheus.yml.example
+Extras/
+evolution-manager-v2/
+manager/
+
+# Prisma migrations (mantemos apenas o necessário)
+prisma/mysql-migrations/
+prisma/psql_bouncer-schema.prisma
+# Nota: O schema correto será usado baseado em DATABASE_PROVIDER
+
+# Build artifacts (serão recriados)
+node_modules/.cache/
+.cache/
