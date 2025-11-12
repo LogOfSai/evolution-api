@@ -28,11 +28,13 @@ heroku addons:create heroku-postgresql:mini
 
 ### 3. Configurar variáveis de ambiente obrigatórias
 
+**IMPORTANTE**: A Evolution API agora mapeia automaticamente `DATABASE_URL` para `DATABASE_CONNECTION_URI`, então você NÃO precisa configurar manualmente a URL do banco.
+
 ```bash
 # Database Provider (CRÍTICO - deve ser configurado antes do deploy)
 heroku config:set DATABASE_PROVIDER=postgresql
 
-# Authentication
+# Authentication (OBRIGATÓRIO)
 heroku config:set AUTHENTICATION_API_KEY=sua_chave_api_segura
 
 # Server Configuration
@@ -42,6 +44,8 @@ heroku config:set SERVER_PORT=8080
 # Node Environment
 heroku config:set NODE_ENV=production
 ```
+
+**Nota**: O Heroku cria automaticamente a variável `DATABASE_URL` quando você adiciona o PostgreSQL. A aplicação agora detecta e mapeia isso automaticamente para `DATABASE_CONNECTION_URI`.
 
 ### 4. Configurar Redis (Opcional mas recomendado)
 

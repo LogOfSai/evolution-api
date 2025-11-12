@@ -3,6 +3,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Map DATABASE_URL to DATABASE_CONNECTION_URI for Heroku compatibility
+if (process.env.DATABASE_URL && !process.env.DATABASE_CONNECTION_URI) {
+  process.env.DATABASE_CONNECTION_URI = process.env.DATABASE_URL;
+  console.log('✅ Mapped DATABASE_URL to DATABASE_CONNECTION_URI for Heroku');
+}
+
 export type HttpServer = {
   NAME: string;
   TYPE: 'http' | 'https';

@@ -4,6 +4,12 @@ const { existsSync } = require('fs');
 
 dotenv.config();
 
+// Map DATABASE_URL to DATABASE_CONNECTION_URI for Heroku compatibility
+if (process.env.DATABASE_URL && !process.env.DATABASE_CONNECTION_URI) {
+  process.env.DATABASE_CONNECTION_URI = process.env.DATABASE_URL;
+  console.log('✅ Mapped DATABASE_URL to DATABASE_CONNECTION_URI for Heroku');
+}
+
 const { DATABASE_PROVIDER } = process.env;
 const databaseProviderDefault = DATABASE_PROVIDER ?? 'postgresql';
 
